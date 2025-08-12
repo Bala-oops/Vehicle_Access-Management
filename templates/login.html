@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Access Management - Login</title>
+<style>
+    /* Background Gradient Animation */
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(270deg, #1abc9c, #3498db, #9b59b6, #e67e22);
+        background-size: 800% 800%;
+        animation: gradientBG 15s ease infinite;
+        font-family: Arial, sans-serif;
+    }
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Container for button & login box */
+    .container {
+        text-align: center;
+        position: relative;
+    }
+
+    /* Initial Login/Register Trigger Button */
+    .trigger-btn {
+        padding: 15px 40px;
+        font-size: 22px;
+        border: none;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #2c3e50;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .trigger-btn:hover {
+        transform: scale(1.1);
+        background: white;
+    }
+
+    /* Hidden Login Box */
+    .login-box {
+        display: none;
+        margin-top: 30px;
+        width: 320px;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        animation: openBox 0.8s ease forwards;
+        color: white;
+    }
+    @keyframes openBox {
+        0% { transform: scale(0) rotate(180deg); opacity: 0; }
+        100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* Form Styling */
+    .login-box h2 {
+        margin-bottom: 20px;
+        font-size: 26px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #fff;
+        text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }
+    .login-box input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+    }
+    .login-box button {
+        width: 48%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .login-btn {
+        background: #2ecc71;
+        color: white;
+    }
+    .login-btn:hover {
+        background: #27ae60;
+    }
+    .register-btn {
+        background: #e74c3c;
+        color: white;
+    }
+    .register-btn:hover {
+        background: #c0392b;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Trigger Button -->
+    <button class="trigger-btn" onclick="showLogin()">Login / Register</button>
+
+    <!-- Hidden Login Box -->
+    <div class="login-box" id="loginBox">
+        <h2>Vehicle Access Management</h2>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <div style="display: flex; justify-content: space-between;">
+                <button type="submit" class="login-btn">Login</button>
+                <button type="button" class="register-btn" onclick="window.location.href='/register'">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function showLogin() {
+    document.getElementById("loginBox").style.display = "block";
+}
+</script>
+
+</body>
+</html>

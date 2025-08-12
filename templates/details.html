@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Pass Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            background-color: #1e1e2f;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            color: white;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 400px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" action="/submit_vehicle_pass">
+        {% for label in [
+            'RequestedBy', 'VehicleType', 'TypeOfVehicle', 'AccessLocation', 'VehicleNo',
+            'EngineNo', 'ChassisNo', 'Model', 'OwnerUsername', 'Address', 'ContactNo',
+            'DriverName', 'DriverAddress'
+        ] %}
+            <label>{{ label }}:</label>
+            <input type="text" name="{{ label }}" required>
+        {% endfor %}
+        <label>FromDate:</label>
+        <input type="date" name="FromDate" required>
+
+        <label>ToDate:</label>
+        <input type="date" name="ToDate" required>
+
+        <button type="submit">Generate Request</button>
+    </form>
+</body>
+</html>

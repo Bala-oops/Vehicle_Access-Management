@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pass Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #1e1e2f;
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        th, td {
+            border: 1px solid #555;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+        }
+
+        .status-approved {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #FF5252;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            margin-top: 10px;
+        }
+
+        .download-btn button {
+            padding: 8px 12px;
+            background-color: #2196F3;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .download-btn button:hover {
+            background-color: #1976D2;
+        }
+
+        p {
+            text-align: center;
+            font-size: 18px;
+            color: #ccc;
+        }
+
+        form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Your Vehicle Pass Requests</h1>
+
+{% if requests and requests|length > 0 %}
+    <table>
+        <tr>
+            <th>Requested By</th>
+            <th>Vehicle Type</th>
+            <th>Type of Vehicle</th>
+            <th>Access Location</th>
+            <th>Vehicle No</th>
+            <th>Engine No</th>
+            <th>Chassis No</th>
+            <th>Model</th>
+            <th>Owner Username</th>
+            <th>Address</th>
+            <th>Contact No</th>
+            <th>Driver Name</th>
+            <th>Driver Address</th>
+            <th>From Date</th>
+            <th>To Date</th>
+            <th>HOD Approval</th>
+            <th>Security Approval</th>
+        </tr>
+        {% for row in requests %}
+        <tr>
+            <td>{{ row.RequestedBy }}</td>
+            <td>{{ row.VehicleType }}</td>
+            <td>{{ row.TypeOfVehicle }}</td>
+            <td>{{ row.AccessLocation }}</td>
+            <td>{{ row.VehicleNo }}</td>
+            <td>{{ row.EngineNo }}</td>
+            <td>{{ row.ChassisNo }}</td>
+            <td>{{ row.Model }}</td>
+            <td>{{ row.OwnerUsername }}</td>
+            <td>{{ row.Address }}</td>
+            <td>{{ row.ContactNo }}</td>
+            <td>{{ row.DriverName }}</td>
+            <td>{{ row.DriverAddress }}</td>
+            <td>{{ row.FromDate }}</td>
+            <td>{{ row.ToDate }}</td>
+
+            <td class="{{ 'status-approved' if row.HODApproval == 'Approved' else 'status-pending' }}">
+                {{ row.HODApproval }}
+            </td>
+
+            <td class="{{ 'status-approved' if row.SecurityApproval == 'Approved' else 'status-pending' }}">
+                {{ row.SecurityApproval }}
+                {% if row.HODApproval == 'Approved' and row.SecurityApproval == 'Approved' %}
+                    <form action="{{ url_for('download_pdf', request_id=row.RequestId) }}" method="get" class="download-btn">
+                        <button type="submit">Download</button>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No pass requests found.</p>
+{% endif %}
+
+</body>
+</html>

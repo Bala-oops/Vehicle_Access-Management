@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #1e1e2f;
+            color: white;
+        }
+
+        .user-section {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .flash-message {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #b9f6ca;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        form h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form input, form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form input {
+            background-color: #ffffff;
+            color: #000;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            font-size: 16px;
+            text-decoration: none;
+            color: #2196F3;
+            margin: 0 10px;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .popup-placeholder {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ Flash message -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-message">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- User Icon (static display only now) -->
+    <div class="user-section">
+        <img src="{{ url_for('static', filename='images/user.png') }}" alt="User Icon">
+        <div class="popup-placeholder">Employee details will appear here.</div>
+    </div>
+
+    <!-- ✅ Vehicle Pass Request Form -->
+    <form method="POST" action="{{ url_for('submit_vehicle_pass') }}">
+        <h2>Apply for Vehicle Access Pass</h2>
+        <input type="text" name="Request By" placeholder="Request By" required>
+        <input type="text" name="vehicle_type" placeholder="Vehicle Type" required>
+        <input type="text" name="type_of_vehicle" placeholder="Type of Vehicle" required>
+        <input type="text" name="access_location" placeholder="Access Location" required>
+        <input type="text" name="vehicle_no" placeholder="Vehicle Number" required>
+        <input type="text" name="engine_no" placeholder="Engine Number" required>
+        <input type="text" name="chassis_no" placeholder="Chassis Number" required>
+        <input type="text" name="model" placeholder="Vehicle Model" required>
+        <input type="text" name="owner_username" placeholder="Owner Username" required>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="text" name="contact_no" placeholder="Contact Number" required>
+        <input type="text" name="driver_name" placeholder="Driver Name" required>
+        <input type="text" name="driver_address" placeholder="Driver Address" required>
+        <input type="date" name="from_date" required>
+        <input type="date" name="to_date" required>
+
+        <button type="submit">Generate Request</button>
+    </form>
+
+    <!-- ✅ Navigation -->
+    <div class="nav-links">
+        <a href="{{ url_for('check_pass_status') }}">Check Pass Status</a>
+    </div>
+
+</body>
+</html>

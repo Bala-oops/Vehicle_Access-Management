@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HOD Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e2f;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #ccc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 320px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .login-box p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form:first-of-type button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        form:first-of-type button:hover {
+            background-color: #45a049;
+        }
+
+        form:last-of-type button {
+            background-color: #2196F3;
+            color: white;
+            margin-top: 10px;
+        }
+
+        form:last-of-type button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>Welcome, HOD</h1>
+        <p>This is your dashboard.</p>
+
+        <form action="{{ url_for('hod_details') }}" method="get">
+            <button type="submit">My Details</button>
+        </form>
+
+        <form action="{{ url_for('hod_requests') }}" method="get">
+            <button type="submit">Pass Requests</button>
+        </form>
+    </div>
+</body>
+</html>

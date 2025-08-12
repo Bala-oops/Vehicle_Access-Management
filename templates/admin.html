@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e2f;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #ccc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 320px;
+            text-align: center;
+        }
+
+        .login-box h1 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .login-box p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Green button - Open Dashboard */
+        form:first-of-type button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        form:first-of-type button:hover {
+            background-color: #45a049;
+        }
+
+        /* Blue button - Open Power BI */
+        form:last-of-type button {
+            background-color: #2196F3;
+            color: white;
+            margin-top: 10px;
+        }
+
+        form:last-of-type button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>Welcome, Admin</h1>
+        <p>This is your dashboard page.</p>
+
+        <!-- Button 1: Open Dashboard (Flask route) -->
+        <form action="{{ url_for('dashboard') }}">
+            <button type="submit">Open Dashboard</button>
+        </form>
+
+        <!-- Button 2: Open Power BI (external link) -->
+        <form action="https://app.powerbi.com/groups/me/reports/YOUR_REPORT_ID" target="_blank">
+            <button type="submit">Open Power BI Page</button>
+        </form>
+    </div>
+</body>
+</html>

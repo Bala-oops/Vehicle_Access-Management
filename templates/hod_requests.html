@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Vehicle Access Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #1e1e2f;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #555;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        select {
+            padding: 6px;
+            border-radius: 4px;
+            border: none;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        td form button {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td form button:hover {
+            background-color: #45a049;
+        }
+
+        td form + form button {
+            background-color: #f44336;
+        }
+
+        td form + form button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Pending Vehicle Access Requests</h2>
+
+    <table>
+        <tr>
+            <th>Request ID</th>
+            <th>Requested By</th>
+            <th>Vehicle Type</th>
+            <th>Access Location</th>
+            <th>From</th>
+            <th>To</th>
+            <th>HOD Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for row in requests %}
+        <tr>
+            <td>{{ row['RequestId'] }}</td>
+            <td>{{ row['RequestedBy'] }}</td>
+            <td>{{ row['VehicleType'] }}</td>
+            <td>{{ row['AccessLocation'] }}</td>
+            <td>{{ row['FromDate'] }}</td>
+            <td>{{ row['ToDate'] }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('approve_request', request_id=row['RequestId']) }}">
+                    <select name="status">
+                        <option value="Pending" {% if row['HODApproval'] == 'Pending' %}selected{% endif %}>Pending</option>
+                        <option value="Approved">Approved</option>
+                    </select>
+                    <button type="submit">Approve</button>
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="{{ url_for('delete_request', request_id=row['RequestId']) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
