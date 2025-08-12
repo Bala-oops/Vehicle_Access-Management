@@ -3,6 +3,35 @@ import pyodbc
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 import io
+import os
+db_url = os.environ.get("DATABASE_URL")
+
+import os
+import psycopg2
+
+# Get the connection string from Render environment variable
+db_url = os.environ.get("DATABASE_URL")
+
+# Connect to PostgreSQL
+conn = psycopg2.connect(db_url)
+cursor = conn.cursor()
+
+# Optional: Test the connection
+cursor.execute("SELECT version();")
+print("Connected to:", cursor.fetchone())
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
